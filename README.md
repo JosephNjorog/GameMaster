@@ -1,7 +1,3 @@
-Certainly! Let's create an enhanced and detailed README for the GameMaster DApp, followed by a comprehensive guide on setting up and starting the project.
-
----
-
 # GameMaster DApp
 
 GameMaster DApp is a decentralized application that lets users compete in skill-based games for real money using cryptocurrencies or local payment methods like Mpesa. With a focus on fairness, security, and user experience, GameMaster DApp aims to revolutionize online gaming by leveraging blockchain technology.
