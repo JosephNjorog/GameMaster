@@ -194,15 +194,17 @@ Comprehensive developer documentation is available to help you get started with 
 
 ## License
 
-GameMaster DApp is open-source software licensed under the MIT License. You are free to use, modify, and distribute it, provided you include the original copyright and license notice.
+GameMaster DApp is not an open-source software licensed under the MIT License. You are not free to use, modify, and distribute it, provided you include the original copyright and license notice or not.
 
 ## Contact
+
+Joseph Mwangi <njorojoe11173@gmail.com>
 
 ### Get in Touch
 
 If you have any questions or need support, feel free to contact us:
 
-- **Email**: support@gamemasterdapp.com
+- **Email**: njorojoe11173@gmail.com
 - **Twitter**: @GameMasterDApp
 - **Discord**: Join our Discord community for real-time support and discussions.
 
