@@ -1,6 +1,8 @@
 const Game = require('../models/Game');
 const { Chess } = require('chess.js');
 
+const TOTAL_SQUARES = 52; // Total squares on the Ludo board before home stretch
+
 // Initialize Ludo board state
 const initializeLudoBoard = () => {
   return {
@@ -31,18 +33,57 @@ const handleChessMove = (game, move) => {
   return game;
 };
 
+// Get the starting square for a player's piece
+const getStartSquare = (player) => {
+  const startSquares = {
+    red: 0,
+    blue: 13,
+    green: 26,
+    yellow: 39,
+  };
+  return startSquares[player];
+};
+
+// Check if a piece can enter the home stretch
+const canEnterHome = (piecePosition, diceRoll) => {
+  return piecePosition + diceRoll <= TOTAL_SQUARES + 5;
+};
+
 // Handle Ludo move
 const handleLudoMove = (game, move) => {
   const { player, pieceIndex, diceRoll } = move;
-
   if (game.state.turn !== player) {
     throw new Error('Not your turn');
   }
 
-  game.state.players[player].pieces[pieceIndex] += diceRoll;
+  const playerPieces = game.state.players[player].pieces;
+  let newPiecePosition = playerPieces[pieceIndex] + diceRoll;
 
-  // Logic to handle capturing opponent pieces and reaching the home square would go here
-  // Example: if (game.state.players[player].pieces[pieceIndex] === finalPosition) { ... }
+  if (newPiecePosition > TOTAL_SQUARES + 5) {
+    throw new Error('Invalid move: cannot move beyond home square');
+  }
+
+  // Handle capturing opponent pieces
+  for (const opponent in game.state.players) {
+    if (opponent !== player) {
+      const opponentPieces = game.state.players[opponent].pieces;
+      for (let i = 0; i < opponentPieces.length; i++) {
+        if (opponentPieces[i] === newPiecePosition) {
+          opponentPieces[i] = 0; // Send captured piece back to start
+        }
+      }
+    }
+  }
+
+  // Update piece position
+  playerPieces[pieceIndex] = newPiecePosition;
+
+  // Check if the piece reaches home
+  if (newPiecePosition === TOTAL_SQUARES + 5) {
+    // Handle reaching home
+    // For simplicity, assume reaching home ends the game for this piece
+    playerPieces[pieceIndex] = -1; // Mark as reached home
+  }
 
   // Update turn
   const turnOrder = ['red', 'blue', 'green', 'yellow'];
