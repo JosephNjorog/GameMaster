@@ -8,5 +8,6 @@ router.post('/create', protect, gameController.createGame);
 router.get('/:id', protect, gameController.getGame);
 router.post('/:id/join', protect, gameController.joinGame);
 router.post('/:id/start', protect, gameController.startGame);
+router.post('/move', protect, gameController.makeMove);
 
 module.exports = router;
