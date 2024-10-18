@@ -1,0 +1,34 @@
+.dashboard-container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .dashboard-container h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  
+  .dashboard-container h2 {
+    font-size: 1.5em;
+    margin-top: 20px;
+  }
+  
+  .game-links ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .game-links li {
+    margin: 10px 0;
+  }
+  
+  .game-links a {
+    text-decoration: none;
+    color: #007BFF;
+    font-size: 1.2em;
+  }
+  
+  .game-links a:hover {
+    text-decoration: underline;
+  }
+  

@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react';
-import { AuthContext } from '../../contexts/AuthContext';
+import React, { useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
 
 const Login = () => {
-  const { login, loginWithGoogle, loginWithMetamask } = useContext(AuthContext);
+  const { login, loginWithGoogle, loginWithMetamask } = useAuth();
   const [error, setError] = useState(null);
 
   const handleSubmit = async (event) => {
