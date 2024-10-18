@@ -8,9 +8,6 @@ import CardTitle from '../../components/ui/CardTitle';
 import CardContent from '../../components/ui/CardContent';
 import { Dice6, RefreshCw, Rocket, Star } from 'lucide-react';
 
-// If you have a custom Planet component, uncomment the next line
-// import Planet from '../ui/Planet';
-
 const BOARD_SIZE = 15;
 const COLORS = ['red', 'blue', 'green', 'yellow'];
 const HOME_POSITIONS = {
@@ -130,7 +127,7 @@ const SpaceLudoGame = () => {
     for (let i = 0; i < BOARD_SIZE; i++) {
       for (let j = 0; j < BOARD_SIZE; j++) {
         let cellContent = null;
-        let cellColor = 'bg-gray-900';
+        let cellColor = 'bg-gray-800';
 
         COLORS.forEach(color => {
           const [homeX, homeY] = HOME_POSITIONS[color];
@@ -147,10 +144,10 @@ const SpaceLudoGame = () => {
                 if (x === i && y === j) {
                   cellContent = (
                     <div
-                      className={`w-6 h-6 rounded-full bg-${color}-500 border-2 border-${color}-300 flex items-center justify-center cursor-pointer transition-transform hover:scale-110`}
+                      className={`w-full h-full rounded-full bg-${color}-500 border-2 border-${color}-300 flex items-center justify-center cursor-pointer transition-transform hover:scale-110`}
                       onClick={() => movePiece(index)}
                     >
-                      <Rocket className="w-4 h-4 text-white" />
+                      <Rocket className="w-3/4 h-3/4 text-white" />
                     </div>
                   );
                 }
@@ -160,14 +157,21 @@ const SpaceLudoGame = () => {
         });
 
         cells.push(
-          <div key={`${i}-${j}`} className={`w-10 h-10 border border-gray-700 flex items-center justify-center ${cellColor}`}>
+          <div key={`${i}-${j}`} className={`w-8 h-8 border border-gray-700 flex items-center justify-center ${cellColor}`}>
             {cellContent}
-            {(i + j) % 5 === 0 && !cellContent && <Star className="w-3 h-3 text-yellow-200 opacity-50" />}
+            {(i + j) % 5 === 0 && !cellContent && <Star className="w-3 h-3 text-yellow-200 opacity-30" />}
           </div>
         );
       }
     }
-    return <div className="grid grid-cols-15 gap-0 bg-black p-4 rounded-lg shadow-lg">{cells}</div>;
+    return (
+      <div className="relative">
+        <div className="absolute inset-0 bg-space-background opacity-20"></div>
+        <div className="grid grid-cols-15 gap-0 bg-black p-4 rounded-lg shadow-lg relative z-10">
+          {cells}
+        </div>
+      </div>
+    );
   };
 
   const getCoordinates = (position, color) => {
@@ -182,9 +186,7 @@ const SpaceLudoGame = () => {
         <CardHeader className="bg-gray-900">
           <CardTitle className="text-3xl font-bold flex items-center justify-between">
             <span className="flex items-center">
-              {/* If you don't have a custom Planet component, you can use another icon or remove this line */}
-              {/* <Planet className="mr-2 text-blue-400" /> */}
-              Space Ludo
+              <Star className="mr-2 text-yellow-400" /> Space Ludo
             </span>
             <Button onClick={initializeGame} variant="outline" className="bg-gray-700 hover:bg-gray-600">
               <RefreshCw className="mr-2 h-4 w-4" /> New Game

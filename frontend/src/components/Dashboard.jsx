@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { Sun, Moon, Calendar, Gamepad2 as GameController, Trophy, TrendingUp } from 'lucide-react';
 import Card from '../components/ui/card';
 import Button from '../components/ui/button';
 import Badge from '../components/ui/badge';
 import CardHeader from '../components/ui/CardHeader';
 import CardTitle from '../components/ui/CardTitle';
 import CardContent from '../components/ui/CardContent';
-import { Calendar, Gamepad2 as GameController, Trophy, TrendingUp } from 'lucide-react';
+import './Dashboard.css';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
@@ -19,9 +20,9 @@ const games = [
 
 const Dashboard = ({ user }) => {
   const [progress, setProgress] = useState([]);
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    // Simulating API call
     const mockProgress = [
       { name: 'Chess', value: 30 },
       { name: 'Ludo', value: 45 },
@@ -32,9 +33,14 @@ const Dashboard = ({ user }) => {
   }, []);
 
   return (
-    <div className="p-6 max-w-6xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">Welcome, {user.firstName}!</h1>
-      
+    <div className={`dashboard-container ${darkMode ? 'dark' : 'light'}`}>
+      <header className="header">
+        <h1 className="text-3xl font-bold mb-6">Welcome, {user.firstName}!</h1>
+        <Button onClick={() => setDarkMode(!darkMode)} className="mode-toggle">
+          {darkMode ? <Sun className="text-yellow-500" /> : <Moon className="text-gray-800" />}
+        </Button>
+      </header>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
           <CardHeader>

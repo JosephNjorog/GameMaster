@@ -1,19 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './Navbar.css';
 
 const Navbar = () => {
   return (
-    <header>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/chess">Chess</Link>
-        <Link to="/ludo">Ludo</Link>
-        <Link to="/scrabble">Scrabble</Link>
-        <Link to="/draft">Draft</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/signup">Sign Up</Link>
-      </nav>
-    </header>
+    <nav className="navbar">
+      <Link to="/" className="navbar-brand">GameHub</Link>
+      <div className="navbar-links">
+        <Link to="/">Dashboard</Link>
+        <Link to="/games/chess">Chess</Link>
+        <Link to="/games/ludo">Ludo</Link>
+        <Link to="/games/scrabble">Scrabble</Link>
+        <Link to="/games/draft">Draft</Link>
+        <Link className="nav-link" to="/login">Login</Link>
+        <Link className="nav-link" to="/signup">Sign Up</Link>
+      </div>
+    </nav>
   );
 };
 
