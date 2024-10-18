@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "../components/ui/badge"
-import { Calendar, GameController, Trophy, TrendingUp } from 'lucide-react';
+import Card from '../components/ui/card';
+import Button from '../components/ui/button';
+import Badge from '../components/ui/badge';
+import CardHeader from '../components/ui/CardHeader';
+import CardTitle from '../components/ui/CardTitle';
+import CardContent from '../components/ui/CardContent';
+import { Calendar, Gamepad2 as GameController, Trophy, TrendingUp } from 'lucide-react';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 

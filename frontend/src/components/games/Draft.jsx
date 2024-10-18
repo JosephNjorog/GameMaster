@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import Card from '../../components/ui/card';
+import Button from '../../components/ui/button';
+import Badge from '../../components/ui/badge';
+import Input from '../../components/ui/input';
+import CardHeader from '../../components/ui/CardHeader';
+import CardTitle from '../../components/ui/CardTitle';
+import CardContent from '../../components/ui/CardContent';
 import { RefreshCw, Crown } from 'lucide-react';
 
 const DraftGame = () => {
