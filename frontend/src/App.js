@@ -8,19 +8,21 @@ import Navbar from './components/Navbar';
 import Dashboard from './components/Dashboard';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
-import ResetPassword from './components/Auth/ResetPassword.jsx'; // Import the ResetPassword component
+import ResetPassword from './components/Auth/ResetPassword';
+import Games from './components/Games';
 import Chess from './components/games/Chess';
 import Ludo from './components/games/Ludo';
 import Scrabble from './components/games/Scrabble';
 import Draft from './components/games/Draft';
 import PaymentForm from './components/PaymentForm';
+import Profile from './components/Profile'; // Import the Profile component
 import './App.css';
 import './components/Auth/Auth.css';  // Ensure this file exists and has the necessary styles
 
-// Stripe initialization
+// Initialize Stripe
 const stripePromise = loadStripe('your-publishable-key-here');
 
-// Protected route component
+// ProtectedRoute component to protect certain routes
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
   if (!user) {
@@ -29,7 +31,7 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
-// App content component
+// AppContent component handling routing and main content
 const AppContent = () => {
   const { user, login, signup, loginWithGoogle, loginWithMetamask } = useAuth();
 
@@ -44,7 +46,6 @@ const AppContent = () => {
   const handleSignup = async (username, email, password) => {
     try {
       await signup(username, email, password);
-      // Redirect to login after signup
       return <Navigate to="/login" replace />;
     } catch (error) {
       throw new Error(error.message);
@@ -72,10 +73,20 @@ const AppContent = () => {
                   onSignupWithMetamask={loginWithMetamask}
                 />
               } />
-              <Route path="/reset-password" element={<ResetPassword />} /> {/* Add Reset Password route */}
+              <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/" element={
                 <ProtectedRoute>
                   <Dashboard user={user} />
+                </ProtectedRoute>
+              } />
+              <Route path="/profile" element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              } />
+              <Route path="/games" element={
+                <ProtectedRoute>
+                  <Games />
                 </ProtectedRoute>
               } />
               <Route path="/games/chess" element={
@@ -111,15 +122,13 @@ const AppContent = () => {
   );
 };
 
-// Main App component
-const App = () => {
-  return (
-    <AuthProvider>
-      <ToasterProvider>
-        <AppContent />
-      </ToasterProvider>
-    </AuthProvider>
-  );
-};
+// Main App component providing context providers
+const App = () => (
+  <AuthProvider>
+    <ToasterProvider>
+      <AppContent />
+    </ToasterProvider>
+  </AuthProvider>
+);
 
 export default App;

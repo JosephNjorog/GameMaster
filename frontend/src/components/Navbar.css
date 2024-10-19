@@ -10,9 +10,9 @@
 
 .navbar {
   background-color: var(--primary-color); /* Default background color */
-  padding: 1rem; /* Padding for the navbar */
+  padding: 1rem 2rem; /* Increased padding for the navbar */
   display: flex; /* Flexbox for layout */
-  justify-content: space-around; /* Space between items */
+  justify-content: space-between; /* Space between items */
   align-items: center; /* Center items vertically */
   position: sticky; /* Sticky positioning for navbar */
   top: 0; /* Stick to the top */
@@ -27,10 +27,11 @@
   background-color: var(--secondary-color);
 }
 
+/* Styling for navbar links */
 .nav-link {
   color: white; /* Text color */
   text-decoration: none; /* No underline on links */
-  padding: 0.5rem 1rem; /* Padding for clickable area */
+  padding: 0.75rem 1.25rem; /* Increased padding for clickable area */
   transition: background-color var(--transition-duration), transform var(--transition-duration), color var(--transition-duration); /* Smooth transitions */
   font-size: var(--font-size); /* Font size */
   position: relative; /* For pseudo-element positioning */
@@ -68,18 +69,22 @@
 /* Flex layout for the navbar items */
 .navbar nav {
   display: flex; /* Flexbox for navbar items */
-  gap: 1rem; /* Spacing between items */
+  gap: 1.5rem; /* Increased spacing between items */
 }
 
 /* Responsive design for smaller screens */
 @media (max-width: 768px) {
   .navbar {
     flex-direction: column; /* Stack items vertically */
-    padding: 0.5rem; /* Adjust padding */
+    padding: 1rem; /* Adjust padding */
   }
   
   .navbar nav {
     flex-direction: column; /* Stack links vertically */
-    gap: 0.5rem; /* Reduced spacing */
+    gap: 1rem; /* Adjusted spacing */
+  }
+  
+  .nav-link {
+    padding: 0.75rem; /* Adjust padding for links on smaller screens */
   }
 }

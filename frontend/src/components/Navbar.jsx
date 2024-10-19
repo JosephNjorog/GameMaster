@@ -1,19 +1,29 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './Navbar.css';
+import { Link, useLocation } from 'react-router-dom';
+import './Navbar.css'; // Import the Navbar styling
 
 const Navbar = () => {
+  const location = useLocation(); // Get current location to highlight the active link
+
   return (
     <nav className="navbar">
-      <Link to="/" className="navbar-brand">GameHub</Link>
-      <div className="navbar-links">
-        <Link to="/">Dashboard</Link>
-        <Link to="/games/chess">Chess</Link>
-        <Link to="/games/ludo">Ludo</Link>
-        <Link to="/games/scrabble">Scrabble</Link>
-        <Link to="/games/draft">Draft</Link>
-        <Link className="nav-link" to="/login">Login</Link>
+      <div className="navbar-logo">
+        <Link to="/" className="navbar-title">YourApp</Link> {/* Update with your app's name */}
       </div>
+      <ul className="navbar-links">
+        <li className={location.pathname === '/' ? 'active' : ''}>
+          <Link to="/">Dashboard</Link>
+        <li className={location.pathname === '/games' ? 'active' : ''}>
+          <Link to="/games">Games</Link>
+        </li>
+        <li className={location.pathname === '/payment' ? 'active' : ''}>
+          <Link to="/payment">Payment</Link>
+        </li>
+        <li className={location.pathname === '/login' ? 'active' : ''}>
+          <Link to="/login">Login</Link>
+        </li>
+        </li>
+      </ul>
     </nav>
   );
 };
