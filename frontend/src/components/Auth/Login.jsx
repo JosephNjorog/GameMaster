@@ -1,37 +1,50 @@
-import React, { useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { FaGoogle } from 'react-icons/fa';
+import { SiMetamask } from 'react-icons/si';
 
-const Login = () => {
-  const { login, loginWithGoogle, loginWithMetamask } = useAuth();
-  const [error, setError] = useState(null);
-
-  const handleSubmit = async (event) => {
+const Login = ({ onLogin, onLoginWithGoogle, onLoginWithMetamask }) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const { email, password } = event.target.elements;
-    try {
-      await login(email.value, password.value);
-    } catch (e) {
-      setError(e.message);
-    }
+    // Handle form submission
+    onLogin(event.target.username.value, event.target.password.value);
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email</label>
-          <input type="email" name="email" required />
-        </div>
-        <div>
-          <label>Password</label>
-          <input type="password" name="password" required />
-        </div>
-        <button type="submit">Login</button>
-      </form>
-      <button onClick={loginWithGoogle}>Login with Google</button>
-      <button onClick={loginWithMetamask}>Login with Metamask</button>
+    <div className="holder">
+      <motion.div 
+        className="box"
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <form onSubmit={handleSubmit} autoComplete="off">
+          <h2>Sign in</h2>
+          <div className="inputBox">
+            <input type="text" required name="username" />
+            <span>Username</span>
+            <i></i>
+          </div>
+          <div className="inputBox">
+            <input type="password" required name="password" />
+            <span>Password</span>
+            <i></i>
+          </div>
+          <div className="links">
+            <a href="#">Forgot Password ?</a>
+            <a href="#">Signup</a>
+          </div>
+          <input type="submit" value="Login" />
+          <div className="social-login">
+            <button type="button" onClick={onLoginWithGoogle} className="google-btn">
+              <FaGoogle /> Login with Google
+            </button>
+            <button type="button" onClick={onLoginWithMetamask} className="metamask-btn">
+              <SiMetamask /> Login with Metamask
+            </button>
+          </div>
+        </form>
+      </motion.div>
     </div>
   );
 };
