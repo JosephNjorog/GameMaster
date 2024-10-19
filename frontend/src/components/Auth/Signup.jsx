@@ -1,16 +1,32 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaGoogle, FaWallet } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const Signup = ({ onSignup, onSignupWithGoogle, onSignupWithMetamask }) => {
-  const handleSubmit = (event) => {
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Handle form submission
-    onSignup(
-      event.target.username.value,
-      event.target.email.value,
-      event.target.password.value
-    );
+
+    try {
+      // Handle form submission
+      await onSignup(
+        event.target.username.value,
+        event.target.email.value,
+        event.target.password.value
+      );
+      // Redirect to login after successful signup
+      navigate('/login'); // Navigate to login page
+    } catch (error) {
+      // Handle error if signup fails (optional)
+      console.error("Signup failed: ", error.message);
+    }
+  };
+
+  // Function to handle redirect to login page
+  const handleLoginRedirect = () => {
+    navigate('/login'); // Redirect to login page
   };
 
   return (
@@ -39,8 +55,7 @@ const Signup = ({ onSignup, onSignupWithGoogle, onSignupWithMetamask }) => {
             <i></i>
           </div>
           <div className="links">
-            <a href="#">Already have an account?</a>
-            <a href="#">Login</a>
+            <button type="button" onClick={handleLoginRedirect}>Already have an account? Login</button>
           </div>
           <input type="submit" value="Sign Up" />
           <div className="social-login">
