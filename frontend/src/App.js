@@ -1,5 +1,3 @@
-// src/App.js
-
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
@@ -10,6 +8,7 @@ import Navbar from './components/Navbar';
 import Dashboard from './components/Dashboard';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
+import ResetPassword from './components/Auth/ResetPassword.jsx'; // Import the ResetPassword component
 import Chess from './components/games/Chess';
 import Ludo from './components/games/Ludo';
 import Scrabble from './components/games/Scrabble';
@@ -42,8 +41,14 @@ const AppContent = () => {
     }
   };
 
-  const handleSignup = (username, email, password) => {
-    signup(username, email, password);
+  const handleSignup = async (username, email, password) => {
+    try {
+      await signup(username, email, password);
+      // Redirect to login after signup
+      return <Navigate to="/login" replace />;
+    } catch (error) {
+      throw new Error(error.message);
+    }
   };
 
   return (
@@ -67,6 +72,7 @@ const AppContent = () => {
                   onSignupWithMetamask={loginWithMetamask}
                 />
               } />
+              <Route path="/reset-password" element={<ResetPassword />} /> {/* Add Reset Password route */}
               <Route path="/" element={
                 <ProtectedRoute>
                   <Dashboard user={user} />
