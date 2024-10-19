@@ -1,64 +1,59 @@
-import React, { useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { AlertCircle, Mail, Lock, UserPlus } from 'lucide-react';
-import Button from '../ui/button';
-import Input from '../ui/input';
-import Alert from '../ui/Alert';
+import { FaGoogle, FaWallet } from 'react-icons/fa';
 
-const Signup = () => {
-  const { signup } = useAuth();
-  const [error, setError] = useState(null);
-
-  const handleSubmit = async (event) => {
+const Signup = ({ onSignup, onSignupWithGoogle, onSignupWithMetamask }) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const { email, password } = event.target.elements;
-    try {
-      await signup(email.value, password.value);
-    } catch (e) {
-      setError(e.message);
-    }
+    // Handle form submission
+    onSignup(
+      event.target.username.value,
+      event.target.email.value,
+      event.target.password.value
+    );
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg"
-    >
-      <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
-      {error && (
-        <Alert variant="destructive" className="mb-4">
-          <AlertCircle className="h-4 w-4" />
-        </Alert>
-      )}
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="relative">
-          <Mail className="absolute top-3 left-3 text-gray-400" />
-          <Input
-            type="email"
-            name="email"
-            placeholder="Email"
-            className="pl-10"
-            required
-          />
-        </div>
-        <div className="relative">
-          <Lock className="absolute top-3 left-3 text-gray-400" />
-          <Input
-            type="password"
-            name="password"
-            placeholder="Password"
-            className="pl-10"
-            required
-          />
-        </div>
-        <Button type="submit" className="w-full">
-          <UserPlus className="mr-2 h-4 w-4" /> Sign Up
-        </Button>
-      </form>
-    </motion.div>
+    <div className="holder">
+      <motion.div 
+        className="box"
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <form onSubmit={handleSubmit} autoComplete="off">
+          <h2>Sign Up</h2>
+          <div className="inputBox">
+            <input type="text" required name="username" />
+            <span>Username</span>
+            <i></i>
+          </div>
+          <div className="inputBox">
+            <input type="email" required name="email" />
+            <span>Email</span>
+            <i></i>
+          </div>
+          <div className="inputBox">
+            <input type="password" required name="password" />
+            <span>Password</span>
+            <i></i>
+          </div>
+          <div className="links">
+            <a href="#">Already have an account?</a>
+            <a href="#">Login</a>
+          </div>
+          <input type="submit" value="Sign Up" />
+          <div className="social-login">
+            <button type="button" onClick={onSignupWithGoogle} className="google-btn">
+              <FaGoogle /> Sign up with Google
+            </button>
+            <button type="button" onClick={onSignupWithMetamask} className="metamask-btn">
+              <FaWallet /> Sign up with Metamask
+            </button>
+          </div>
+        </form>
+      </motion.div>
+    </div>
   );
 };
 

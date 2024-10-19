@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaGoogle } from 'react-icons/fa';
-import { SiMetamask } from 'react-icons/si';
+import { FaGoogle, FaWallet } from 'react-icons/fa';
 
 const Login = ({ onLogin, onLoginWithGoogle, onLoginWithMetamask }) => {
   const handleSubmit = (event) => {
@@ -40,7 +39,7 @@ const Login = ({ onLogin, onLoginWithGoogle, onLoginWithMetamask }) => {
               <FaGoogle /> Login with Google
             </button>
             <button type="button" onClick={onLoginWithMetamask} className="metamask-btn">
-              <SiMetamask /> Login with Metamask
+              <FaWallet /> Login with Metamask
             </button>
           </div>
         </form>

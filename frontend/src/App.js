@@ -6,7 +6,7 @@ import { ToasterProvider } from './components/ui/toaster';
 import { AuthProvider, useAuth } from './components/contexts/AuthContext';
 import Navbar from './components/Navbar';
 import Dashboard from './components/Dashboard';
-import AnimatedLogin from './components/Auth/Login';
+import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
 import Chess from './components/games/Chess';
 import Ludo from './components/games/Ludo';
@@ -14,7 +14,7 @@ import Scrabble from './components/games/Scrabble';
 import Draft from './components/games/Draft';
 import PaymentForm from './components/PaymentForm';
 import './App.css';
-import './components/Auth/Login.css';  // Import the CSS for AnimatedLogin
+import './components/Auth/Auth.css';  // Renamed CSS file to Auth.css
 
 // Stripe initialization
 const stripePromise = loadStripe('your-publishable-key-here');
@@ -30,10 +30,14 @@ const ProtectedRoute = ({ children }) => {
 
 // App content component
 const AppContent = () => {
-  const { user, login, loginWithGoogle, loginWithMetamask } = useAuth();
+  const { user, login, signup, loginWithGoogle, loginWithMetamask } = useAuth();
 
   const handleLogin = (username, password) => {
     login(username, password);
+  };
+
+  const handleSignup = (username, email, password) => {
+    signup(username, email, password);
   };
 
   return (
@@ -50,7 +54,13 @@ const AppContent = () => {
                   onLoginWithMetamask={loginWithMetamask}
                 />
               } />
-              <Route path="/signup" element={<Signup />} />
+              <Route path="/signup" element={
+                <AnimatedSignup 
+                  onSignup={handleSignup}
+                  onSignupWithGoogle={loginWithGoogle}
+                  onSignupWithMetamask={loginWithMetamask}
+                />
+              } />
               <Route path="/" element={
                 <ProtectedRoute>
                   <Dashboard user={user} />
