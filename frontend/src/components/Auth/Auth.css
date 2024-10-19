@@ -249,3 +249,7 @@ input[type="submit"]:active {
 .metamask-btn:hover {
   background-color: #e2761b;
 }
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+}

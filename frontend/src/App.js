@@ -1,3 +1,5 @@
+// src/App.js
+
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { loadStripe } from '@stripe/stripe-js';
@@ -14,7 +16,7 @@ import Scrabble from './components/games/Scrabble';
 import Draft from './components/games/Draft';
 import PaymentForm from './components/PaymentForm';
 import './App.css';
-import './components/Auth/Auth.css';  // Renamed CSS file to Auth.css
+import './components/Auth/Auth.css';  // Ensure this file exists and has the necessary styles
 
 // Stripe initialization
 const stripePromise = loadStripe('your-publishable-key-here');
@@ -32,8 +34,12 @@ const ProtectedRoute = ({ children }) => {
 const AppContent = () => {
   const { user, login, signup, loginWithGoogle, loginWithMetamask } = useAuth();
 
-  const handleLogin = (username, password) => {
-    login(username, password);
+  const handleLogin = async (username, password) => {
+    try {
+      await login(username, password);
+    } catch (error) {
+      throw new Error(error.message);
+    }
   };
 
   const handleSignup = (username, email, password) => {
@@ -48,14 +54,14 @@ const AppContent = () => {
           <div className="main-content">
             <Routes>
               <Route path="/login" element={
-                <AnimatedLogin 
+                <Login 
                   onLogin={handleLogin}
                   onLoginWithGoogle={loginWithGoogle}
                   onLoginWithMetamask={loginWithMetamask}
                 />
               } />
               <Route path="/signup" element={
-                <AnimatedSignup 
+                <Signup 
                   onSignup={handleSignup}
                   onSignupWithGoogle={loginWithGoogle}
                   onSignupWithMetamask={loginWithMetamask}
