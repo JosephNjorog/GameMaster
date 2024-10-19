@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaGoogle, FaWallet } from 'react-icons/fa';
 import { useAuth } from '../contexts/AuthContext.js';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const { login, loginWithGoogle, loginWithMetamask, error } = useAuth();
   const [localError, setLocalError] = useState('');
+  const navigate = useNavigate(); // Initialize navigate function
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -13,10 +15,8 @@ const Login = () => {
     const password = event.target.password.value;
 
     try {
-      // Call the login function with username and password
       await login(username, password);
     } catch (err) {
-      // Set local error message if login fails
       setLocalError(err.message);
     }
   };
@@ -44,8 +44,8 @@ const Login = () => {
             <i></i>
           </div>
           <div className="links">
-            <a href="#">Forgot Password ?</a>
-            <a href="#">Signup</a>
+            <a href="#" onClick={() => navigate('/reset-password')}>Forgot Password?</a>
+            <a href="#" onClick={() => navigate('/signup')}>Signup</a>
           </div>
           <input type="submit" value="Login" />
           <div className="social-login">
